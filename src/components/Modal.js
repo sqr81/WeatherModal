@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
 
-export default function Modal() {
+import Modal from 'react-native-modal';
+
+export default function ShowModal() {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
-    <View>
-      <Modal isVisible={true}>
+    <View style={{flex: 1}}>
+      <Button title="Show modal" onPress={toggleModal} />
+
+      <Modal isVisible={isModalVisible}>
         <View style={{flex: 1}}>
-          <Text>I am the modal content!</Text>
+          <Text>Hello!</Text>
+
+          <Button title="Hide modal" onPress={toggleModal} />
         </View>
       </Modal>
     </View>
