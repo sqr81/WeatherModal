@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 
-export default function Index() {
+export default function Index(){
   return (
     <>
       <View>
-        <Text>Hello Baroudeur !</Text>
-        
+      <Text>Hello Baroudeur</Text>
+        <Image source={require('../../assets/carteBaroudeur.jpg')} />
       </View>
     </>
   );
