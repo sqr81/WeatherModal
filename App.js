@@ -4,6 +4,8 @@ import Geolocation from 'react-native-geolocation-service';
 import useLocation from "./src/hooks/useLocation"
 import CurrentWeather from './src/components/modal/CurrentWeather';
 
+import ShowModal from './src/components/modal/Index';
+
 export default function App() {
   // hook
   const {isAuthorized, isLoading, coordonnates} = useLocation();
@@ -22,7 +24,7 @@ export default function App() {
   if(isLoading){
     return (
       <View style={styles.container}>
-      <CurrentWeather />
+      <ShowModal /> 
         <Text style={styles.text}>Chargement...</Text>
       </View>
     );
@@ -31,7 +33,7 @@ export default function App() {
   if(isAuthorized === false){
     return (
       <View style={styles.container}>
-      <CurrentWeather />
+      <ShowModal /> 
         <Text style={styles.text}>Vous devez nous donner accès a votre localisation.</Text>
       </View>
     );
@@ -40,7 +42,7 @@ export default function App() {
   if(!coordonnates){
     return (
       <View style={styles.container}>
-      <CurrentWeather />
+        <ShowModal />      
         <Text style={styles.text}>Error...</Text>
       </View>
     );
@@ -48,7 +50,7 @@ export default function App() {
  
   return (
     <View style={styles.container}>
-   <CurrentWeather />
+      <ShowModal />  
       <Text>Les coordonnées sont lat: {coordonnates.latitude} long: {coordonnates.longitude}</Text>
     </View>
   );

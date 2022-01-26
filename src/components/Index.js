@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 export default function Index() {
@@ -15,3 +15,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#E7E7DE',
   },
 });
+*/
