@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import useLocation from "./src/hooks/useLocation"
-import CurrentWeather from './src/components/modal/CurrentWeather';
 
+import useLocation from "./src/hooks/useLocation"
 import ShowModal from './src/components/modal/Index';
 
 export default function App() {
@@ -21,6 +20,7 @@ export default function App() {
 
   //previsions
 
+  //Chargement 
   if(isLoading){
     return (
       <View style={styles.container}>
@@ -30,6 +30,7 @@ export default function App() {
     );
   }
 
+  //autorisation accès
   if(isAuthorized === false){
     return (
       <View style={styles.container}>
@@ -39,6 +40,7 @@ export default function App() {
     );
   }
 
+  //erreur
   if(!coordonnates){
     return (
       <View style={styles.container}>
@@ -48,6 +50,7 @@ export default function App() {
     );
   }
  
+  //affichage coordonnees
   return (
     <View style={styles.container}>
       <ShowModal />  

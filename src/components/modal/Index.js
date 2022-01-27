@@ -16,10 +16,12 @@ export default function ShowModal() {
         <Button title=" X " onPress={toggleModal} />
       </View>
       <View>
-        <Modal style={styles.currentWeatherContainer} isVisible={isModalVisible}>
+        <Modal style={styles.weatherContainer} isVisible={isModalVisible}>
           <View style={styles.currentWeatherContent}>
             <CurrentWeather />
-            <ForecastWeather />
+          </View>
+          <View style={styles.forecastWeatherContent}>
+          <ForecastWeather />
           </View>
           <View style={styles.buttonClose}>
             <Button title="X" onPress={toggleModal} />
@@ -31,15 +33,11 @@ export default function ShowModal() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#E7E7DE",
-  },
  
   buttonClose: {
     position: "absolute",
-    right: -10,
-    top: -20,
+    right: 50,
+    top: 20,
     backgroundColor: "#E7E7DE",
     //marginHorizontal: -30,
     color: "#000000",
@@ -52,32 +50,33 @@ const styles = StyleSheet.create({
     color: "#000000",
   },
   
-  currentWeatherContainer: {
-    position: "absolute",
-    width: "75%",
-    height: "55%",
-    marginHorizontal: 50,
-    alignItems: "center",
-    borderRadius: 8,
-    top: 24,
-    backgroundColor: "#00587A",
-  },
   currentWeatherContent: {
+    width: '75%',
+    height: '55%',
+    position: 'absolute',
+    top: '5%',
     color: "#FFFFFF",
+    backgroundColor: "#00587A",
+    borderRadius: 12,
     fontFamily: "Open Sans",
     fontStyle: "normal",
     textAlign: "center",
   },
-  temperature: {
-    fontSize: 60,
-    fontWeight: "bold",
+
+  forecastWeatherContent:{
+    fontFamily: "Open Sans",
+    fontStyle: "normal",
     textAlign: "center",
-    color: "#ffffff",
+    backgroundColor: "#E7E7DE",
   },
-  weatherType: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#ffffff",
+  
+  weatherContainer: {
+    width: "100%",
+    height: "100%",
+    marginHorizontal: 0,
+    marginVertical: 0,
+    backgroundColor: "#E7E7DE",
+    alignItems:'center'
   },
+
 });
