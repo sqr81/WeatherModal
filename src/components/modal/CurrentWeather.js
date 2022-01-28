@@ -34,18 +34,19 @@ const styles = StyleSheet.create({
     textAlign:'center', 
   },
   
+  container:{
+    backgroundColor: '#00587A',
+    alignItems:'center',
+    borderRadius: 12,
+    paddingBottom: '50%',
+  },
+
   image:{
     width: 100,
     height: 100,
     position:'relative',
     top:'20%',
    
-  },
-
-  container:{
-    backgroundColor: '#00587A',
-    alignItems:'center',
-    borderRadius: 12,
   },
 
   temperature:{
@@ -59,10 +60,10 @@ const styles = StyleSheet.create({
 
   weatherType:{
     position:'relative',
-    top:'35%',
-    fontSize: 20, 
+    top:'30%',
+    fontSize: 30, 
     fontWeight:'bold',
-     textAlign:'center',
-     color:'#ffffff',
+    textAlign:'center',
+    color:'#ffffff',
   },
 });

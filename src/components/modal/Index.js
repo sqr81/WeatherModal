@@ -21,7 +21,7 @@ export default function ShowModal() {
             <CurrentWeather />
           </View>
           <View style={styles.forecastWeatherContent}>
-          <ForecastWeather />
+            <ForecastWeather />
           </View>
           <View style={styles.buttonClose}>
             <Button title="X" onPress={toggleModal} />
@@ -61,9 +61,14 @@ const styles = StyleSheet.create({
     fontFamily: "Open Sans",
     fontStyle: "normal",
     textAlign: "center",
+  
   },
 
   forecastWeatherContent:{
+    width: '75%',
+    height: '55%',
+    position: 'absolute',
+    top: '65%',
     fontFamily: "Open Sans",
     fontStyle: "normal",
     textAlign: "center",
@@ -75,6 +80,7 @@ const styles = StyleSheet.create({
     height: "100%",
     marginHorizontal: 0,
     marginVertical: 0,
+    paddingVertical: '10%',
     backgroundColor: "#E7E7DE",
     alignItems:'center'
   },
