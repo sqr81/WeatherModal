@@ -21,20 +21,14 @@ export default function CurrentWeather({ data }) {
   return (
     <>
       <View style={styles.container}>
-        <Text>{data?.city?.name}</Text>
-        <Text>{data?.city?.name}</Text>
-        <Text>Aujourd'hui</Text>
-        <Text>{Math.round(currentWeather?.main.temp)}°C</Text>
-        <Text>{currentWeather?.weather[0].description}°C</Text>
-
-        <Text style={styles.city}>Castiglione</Text>
+        <Text style={styles.city}>{data?.city?.name}</Text>
         <Text style={styles.aujourdhui}>Aujourd'hui</Text>
         <Image
           style={styles.image}
           source={{ uri: getIcon(currentWeather?.weather[0].icon) }}
         ></Image>
-        <Text style={styles.temperature}>7°C</Text>
-        <Text>{Math.round(data?.list[0]?.main.temp)}°C</Text>
+        <Text style={styles.temperature}>{Math.round(data?.list[0]?.main.temp)}°C</Text>
+        <Text></Text>
         <Text style={styles.weatherType}>{currentWeather?.weather[0].description}</Text>
       </View>
     </>
@@ -62,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#00587A",
     alignItems: "center",
     borderRadius: 12,
-    paddingBottom: "50%",
+    paddingBottom: "30%",
   },
 
   image: {
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
 
   weatherType: {
     position: "relative",
-    top: "30%",
+    top: "20%",
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",

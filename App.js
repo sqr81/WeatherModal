@@ -35,8 +35,6 @@ export default function App() {
   if(isLoading){
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
-       
         <ActivityIndicator style={styles.activityIndicator}/> 
       </View>
     );

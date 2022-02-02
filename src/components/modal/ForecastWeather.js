@@ -1,16 +1,61 @@
-import React from 'react';
-import { Text, View,Image, StyleSheet } from 'react-native';
-import { getCurrentPosition } from 'react-native-geolocation-service';
+import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import { getCurrentPosition } from "react-native-geolocation-service";
 
-export default function ForecastWeather(){
-    return (
-    <>
-    <View style={styles.containerDate}>
-        <Image style={styles.direction} source={require('../../../assets/left.png')}></Image>
-        <Text style ={styles.date}>Jeudi 26 janvier</Text>
-        <Image style={styles.direction} source={require('../../../assets/right.png')}></Image>
+import Weather from "./Weather";
+
+export default function ForecastWeather({ data }) {
+  const [forecasts, setForecasts] = useState([]);
+
+  useEffect(() => {
+    //on refait un tableau pour mieux manipuler les datas
+    const forecastsData = data.list.map((f) => {
+      //la date de openweather n'est pas standard, on doit la modifier
+      const dt = new Date(f.dt * 1000);
+      return {
+        date: dt,
+        hour: dt.getHours(),
+        temp: Math.round(f.main.temp),
+        icon: f.weather[0].icon,
+        name: format(dt, "EEEE", { locale: fr }),
+      };
+    });
+    setForecasts(forecastsData);
+  }, [data]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.containerDate}>
+        <Image
+          style={styles.direction}
+          source={require("../../../assets/left.png")}
+        ></Image>
+        <Text style={styles.date}>date</Text>
+        <Image
+          style={styles.direction}
+          source={require("../../../assets/right.png")}
+        ></Image>
+      </View>
+      <View />
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.scroll}
+      >
+        {forecasts.map((f) => (
+          <View style={styles.containerThreeForecast}>
+            <Weather forecast={f} />
+          </View>
+        ))}
+      </ScrollView>
     </View>
-    <View style={styles.containerThreeForecast}>
+  );
+}
+/*
+
+<View style={styles.containerThreeForecast}>
         <View style={styles.containerOneForecast}>
             <Text style={styles.subDay}>Matin</Text>
             <Image style={styles.image} source={require('../../../assets/ciel-clair.png')}></Image>
@@ -27,62 +72,44 @@ export default function ForecastWeather(){
             <Text style={styles.temperature}>7°C</Text>
         </View>
     </View>
-    </>
-    );
-}
-
+    */
 const styles = StyleSheet.create({
-    containerDate:{
-        width:'100%',
-        flexDirection:'row',
-        marginVertical: '10%',
-        
-        justifyContent:'center',
-        
-        
-    },
+  container: {
+    width: "100%",
+    height: "100%",
+  },
 
-    containerOneForecast:{
-        width: '25%',
-        backgroundColor: '#008891',
-        borderRadius: 12,
-        alignItems:'center',
-        justifyContent:'space-between',
-        paddingTop: 20,
-        paddingBottom: 20,
-    },
+  containerDate: {
+    width: "100%",
+    flexDirection: "row",
+    marginVertical: "10%",
 
-    containerThreeForecast:{
-        width:'100%',
-        height: '50%',
-        flexDirection:'row',
-        justifyContent:'space-between',
-    },
+    justifyContent: "center",
+  },
 
-    date:{
-        fontSize: 30, 
-        fontWeight:'bold',
-        textAlign:'center',
-        color:'#000000',
-    },
-
-    direction:{
-        width: 40,
-        height: 40,
-    },
+  containerThreeForecast: {
     
-    image:{
-        width: 50,
-        height: 50,
-    },
+    height: "100%",
+    //flexDirection: "row",
+    //justifyContent: "space-between",
+    backgroundColor:"#E7E7DE",
+  },
 
-    subDay:{
-        fontSize: 20,
-        color: '#ffffff',
-    },
+  date: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#000000",
+  },
 
-    temperature:{
-        fontSize: 20,
-        color: '#ffffff',
-    },
-})
+  direction: {
+    width: 40,
+    height: 40,
+  },
+
+  scroll: {
+    width: "100%",
+    height: "100%",
+    //textAlign: "center",
+  },
+});
