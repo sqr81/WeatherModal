@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
         width:'100%',
         flexDirection:'row',
         marginVertical: '10%',
+        
+        justifyContent:'center',
+        
+        
     },
 
     containerOneForecast:{

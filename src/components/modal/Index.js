@@ -1,24 +1,28 @@
 import React, { useState } from "react";
-import { Button, Text, View, StyleSheet } from "react-native";
+import { Button, Text, View, StyleSheet,TouchableOpacity,ImageBackground, } from "react-native";
 import Modal from "react-native-modal";
 import CurrentWeather from "./CurrentWeather";
 import ForecastWeather from "./ForecastWeather";
 
-export default function ShowModal() {
+export default function ShowModal({ data }) {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   return (
-    <>  
+    <>
       <View style={styles.buttonOpen}>
-        <Button title=" X " onPress={toggleModal} />
-      </View>
+        <TouchableOpacity onPress={toggleModal}>
+          <ImageBackground style={styles.buttonImage} source={require("../../../assets/ciel-clair.png")} style={{}}>
+            <Text style={styles.title}></Text>
+          </ImageBackground>
+        </TouchableOpacity>
+      </View>  
       <View>
         <Modal style={styles.weatherContainer} isVisible={isModalVisible}>
           <View style={styles.currentWeatherContent}>
-            <CurrentWeather />
+          <CurrentWeather data={data} />
           </View>
           <View style={styles.forecastWeatherContent}>
             <ForecastWeather />
@@ -33,23 +37,37 @@ export default function ShowModal() {
 }
 
 const styles = StyleSheet.create({
- 
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  title: {
+    color: "white",
+    fontSize: 24,
+    padding: 20,
+  },
+
   buttonClose: {
     position: "absolute",
-    right: 50,
-    top: 20,
-    backgroundColor: "#E7E7DE",
-    //marginHorizontal: -30,
-    color: "#000000",
+    right: '5%',
+    top: '5%',
+    backgroundColor: "red",
+    color: "#ffffff",
   },
+
   buttonOpen: {
+    position: "absolute",
+    top: '5%',
+    right: '20%',
     flexDirection: "row",
-    justifyContent: "flex-end",
-    backgroundColor: "#E7E7DE",
+    justifyContent: "flex-end",   
     marginHorizontal: -30,
-    color: "#000000",
+    width:50,
+    height: 50,
   },
-  
+
   currentWeatherContent: {
     width: '75%',
     height: '55%',
@@ -60,8 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     fontFamily: "Open Sans",
     fontStyle: "normal",
-    textAlign: "center",
-  
+    textAlign: "center", 
   },
 
   forecastWeatherContent:{

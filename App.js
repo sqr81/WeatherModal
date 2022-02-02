@@ -1,31 +1,43 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import * as Location from 'react-native-geolocation-service';
+import axios from "axios"
 
-import useLocation from "./src/hooks/useLocation"
+import useCurrentLocationWeather from "./src/hooks/useCurrentLocationWeather";
 import ShowModal from './src/components/modal/Index';
 
+// !!!! cle api a mettre dans un.env !!!!
+const API_URL = (lat, lon) => `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=4cc88603d49534dcc69aa72ce918bad6&lang=fr&units=metric`
+
 export default function App() {
-  // hook
-  const {isAuthorized, isLoading, coordonnates} = useLocation();
+  // hook récup coord user
+  const {isAuthorized, isLoading, error, data} = useCurrentLocationWeather();
 
-  //1-récup coord user
-
- 
+      //filter an fonction date du jour
+    
+    
   //2- realiser une requete vers les serveurs
 
   //city
 
-  //meteo du moment
-
   //previsions
-
+  const getWeather = async (location) => {
+    try {
+      const response = await axios.get(API_URL(location.coords.latitude, location.coords.longitude))
+      setData(response.data)
+      setIsLoading(false)
+      
+    } catch(e) {
+      console.log("Erreur dans getWeather")
+    }
+  }
   //Chargement 
   if(isLoading){
     return (
       <View style={styles.container}>
-      <ShowModal /> 
-        <Text style={styles.text}>Chargement...</Text>
+        <Text>Loading...</Text>
+       
+        <ActivityIndicator style={styles.activityIndicator}/> 
       </View>
     );
   }
@@ -34,27 +46,25 @@ export default function App() {
   if(isAuthorized === false){
     return (
       <View style={styles.container}>
-      <ShowModal /> 
         <Text style={styles.text}>Vous devez nous donner accès a votre localisation.</Text>
       </View>
     );
   }
 
   //erreur
-  if(!coordonnates){
+  if(error){
     return (
       <View style={styles.container}>
-        <ShowModal />      
         <Text style={styles.text}>Error...</Text>
       </View>
     );
   }
  
-  //affichage coordonnees
+  //affichage ville
   return (
     <View style={styles.container}>
-      <ShowModal />  
-      <Text>Les coordonnées sont lat: {coordonnates.latitude} long: {coordonnates.longitude}</Text>
+      <Text>{data?.city?.name}</Text>
+      <ShowModal data={data}/>  
     </View>
   );
 }
@@ -65,7 +75,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#E7E7DE',
     paddingHorizontal: 65,
   },
-  text: {
-    fontSize: 25,
-  }
+
+  activityIndicator:{
+    justifyContent:'center',
+    alignItems:'center',
+  },
 });

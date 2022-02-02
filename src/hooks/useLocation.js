@@ -15,6 +15,7 @@ export default () => {
                     const {coords: { longitude, latitude }} = location;
                     setCoordonnates({ longitude, latitude });
                     setIsLoading(false);
+                    
                 },
                 (error) => {
                     setIsLoading(false);
