@@ -8,6 +8,7 @@ import Weather from "./Weather";
 
 export default function ForecastWeather({ data }) {
   const [forecasts, setForecasts] = useState([]);
+  const date = format(new Date(),"EEEE dd MMMM",{locale: fr});
 
   useEffect(() => {
     //on refait un tableau pour mieux manipuler les datas
@@ -32,7 +33,7 @@ export default function ForecastWeather({ data }) {
           style={styles.direction}
           source={require("../../../assets/left.png")}
         ></Image>
-        <Text style={styles.date}>date</Text>
+        <Text style={styles.date}>{date}</Text>
         <Image
           style={styles.direction}
           source={require("../../../assets/right.png")}
@@ -53,26 +54,7 @@ export default function ForecastWeather({ data }) {
     </View>
   );
 }
-/*
 
-<View style={styles.containerThreeForecast}>
-        <View style={styles.containerOneForecast}>
-            <Text style={styles.subDay}>Matin</Text>
-            <Image style={styles.image} source={require('../../../assets/ciel-clair.png')}></Image>
-            <Text style={styles.temperature}>7°C</Text>
-        </View>
-        <View style={styles.containerOneForecast}>
-            <Text style={styles.subDay}>Midi</Text>
-            <Image style={styles.image} source={require('../../../assets/ciel-clair.png')}></Image>
-            <Text style={styles.temperature}>7°C</Text>
-        </View>
-        <View style={styles.containerOneForecast}>
-            <Text style={styles.subDay}>Soir</Text>
-            <Image style={styles.image} source={require('../../../assets/ciel-clair.png')}></Image>
-            <Text style={styles.temperature}>7°C</Text>
-        </View>
-    </View>
-    */
 const styles = StyleSheet.create({
   container: {
     width: "100%",

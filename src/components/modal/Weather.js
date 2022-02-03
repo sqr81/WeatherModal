@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
