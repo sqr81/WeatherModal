@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Text, View, StyleSheet,TouchableOpacity,ImageBackground, } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import Modal from "react-native-modal";
 import CurrentWeather from "./CurrentWeather";
 import ForecastWeather from "./ForecastWeather";
@@ -14,22 +22,27 @@ export default function ShowModal({ data }) {
     <>
       <View style={styles.buttonOpen}>
         <TouchableOpacity onPress={toggleModal}>
-          <ImageBackground style={styles.buttonImage} source={require("../../../assets/ciel-clair.png")} style={{}}>
+          <ImageBackground
+            style={styles.buttonImage}
+            source={require("../../../assets/ciel-clair.png")}
+            style={{}}
+          >
             <Text style={styles.title}></Text>
           </ImageBackground>
         </TouchableOpacity>
-      </View>  
+      </View>
       <View>
         <Modal style={styles.weatherContainer} isVisible={isModalVisible}>
           <View style={styles.currentWeatherContent}>
-          <CurrentWeather data={data} />
+            <CurrentWeather data={data} />
           </View>
           <View style={styles.forecastWeatherContent}>
-            <ForecastWeather data={data}/>
+            <ForecastWeather data={data} />
           </View>
-          <View style={styles.buttonClose}>
-            <Button title="X" onPress={toggleModal} />
-          </View>
+          
+          <Pressable style={styles.buttonClose} onPress={toggleModal}>
+            <Text style={styles.buttonCloseText}> X </Text>
+          </Pressable>
         </Modal>
       </View>
     </>
@@ -37,7 +50,6 @@ export default function ShowModal({ data }) {
 }
 
 const styles = StyleSheet.create({
-  
   title: {
     color: "white",
     fontSize: 24,
@@ -46,55 +58,62 @@ const styles = StyleSheet.create({
 
   buttonClose: {
     position: "absolute",
-    right: '5%',
-    top: '5%',
-    backgroundColor: "red",
-    color: "#ffffff",
+    right: "1%",
+    top: "5%",
+    backgroundColor: "#E7E7DE",
+  },
+
+  buttonCloseText: {
+    color: "black",
+    fontSize:20,
   },
 
   buttonOpen: {
     position: "absolute",
-    top: '5%',
-    right: '20%',
+    top: "5%",
+    right: "20%",
     flexDirection: "row",
-    justifyContent: "flex-end",   
+    justifyContent: "flex-end",
     marginHorizontal: -30,
-    width:50,
+    width: 50,
     height: 50,
   },
 
   currentWeatherContent: {
-    width: '75%',
-    height: '55%',
-    position: 'absolute',
-    top: '5%',
+    width: "75%",
+    height: "55%",
+    position: "absolute",
+    top: "5%",
     color: "#FFFFFF",
     backgroundColor: "#00587A",
     borderRadius: 12,
     fontFamily: "Open Sans",
     fontStyle: "normal",
-    textAlign: "center", 
+    textAlign: "center",
   },
 
-  forecastWeatherContent:{
-    width: '75%',
-    height: '45%',
-    position: 'absolute',
-    top: '65%',
+  forecastWeatherContent: {
+    width: "75%",
+    height: "40%",
+    position: "absolute",
+    bottom: "0%",
     fontFamily: "Open Sans",
     fontStyle: "normal",
     textAlign: "center",
-    backgroundColor: "#E7E7DE",
-  },
-  
-  weatherContainer: {
-    width: "100%",
-    height: "100%",
-    marginHorizontal: 0,
-    marginVertical: 0,
-    paddingVertical: '10%',
-    backgroundColor: "#E7E7DE",
-    alignItems:'center'
+    marginTop: "-15%",
+    //backgroundColor:'green',
+    //justifyContent:'space-between',
   },
 
+  weatherContainer: {
+    width: "70%",
+    height: "70%",
+    alignSelf: "center",
+    marginTop: "10%",
+    marginBottom: "20%",
+    marginHorizontal: 0,
+    marginVertical: 0,
+    backgroundColor: "#E7E7DE",
+    alignItems: "center",
+  },
 });

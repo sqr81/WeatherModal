@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   aujourdhui: {
     position: "relative",
     top: "10%",
-    fontSize: 20,
+    fontSize: 16,
     textAlign: "center",
     color: "#ffffff",
   },
@@ -47,29 +47,34 @@ const styles = StyleSheet.create({
   city: {
     position: "relative",
     top: "5%",
-    fontSize: 30,
+    fontSize: 24,
     color: "#ffffff",
     textAlign: "center",
   },
 
   container: {
-    backgroundColor: "#00587A",
+    //backgroundColor: "red",
     alignItems: "center",
     borderRadius: 12,
     paddingBottom: "30%",
+    width: "70%",
+    height: "100%",
+    alignSelf: "center",
+    //marginTop: "5%",
+
   },
 
   image: {
     width: 100,
     height: 100,
     position: "relative",
-    top: "20%",
+    top: "15%",
   },
 
   temperature: {
     position: "relative",
-    top: "30%",
-    fontSize: 60,
+    top: "20%",
+    fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
     color: "#ffffff",
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
   weatherType: {
     position: "relative",
     top: "20%",
-    fontSize: 30,
+    fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
     color: "#ffffff",

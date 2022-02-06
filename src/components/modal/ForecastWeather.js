@@ -8,7 +8,7 @@ import Weather from "./Weather";
 
 export default function ForecastWeather({ data }) {
   const [forecasts, setForecasts] = useState([]);
-  const date = format(new Date(),"EEEE dd MMMM",{locale: fr});
+  const date = format(new Date(), "EEEE dd MMMM", { locale: fr });
 
   useEffect(() => {
     //on refait un tableau pour mieux manipuler les datas
@@ -45,8 +45,8 @@ export default function ForecastWeather({ data }) {
         showsHorizontalScrollIndicator={false}
         style={styles.scroll}
       >
-        {forecasts.map((f) => (
-          <View style={styles.containerThreeForecast}>
+        {forecasts.map((f, index) => (
+          <View key={index.toString()} style={styles.containerThreeForecast}>
             <Weather forecast={f} />
           </View>
         ))}
@@ -59,26 +59,24 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
+    position:'relative',
+    top:'0%',
   },
 
   containerDate: {
     width: "100%",
     flexDirection: "row",
-    marginVertical: "10%",
-
+    marginVertical: "2%",
     justifyContent: "center",
   },
 
   containerThreeForecast: {
-    
-    height: "100%",
-    //flexDirection: "row",
-    //justifyContent: "space-between",
-    backgroundColor:"#E7E7DE",
+    height: "85%",
+    alignContent: "space-between",
   },
 
   date: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     color: "#000000",
@@ -92,6 +90,5 @@ const styles = StyleSheet.create({
   scroll: {
     width: "100%",
     height: "100%",
-    //textAlign: "center",
   },
 });
