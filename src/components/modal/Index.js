@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Text,
@@ -14,10 +14,16 @@ import ForecastWeather from "./ForecastWeather";
 
 export default function ShowModal({ data }) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const animationIn = "fadeIn"
+  const animationInTiming = 600
+  const animationOut = "fadeOut"
+  const animationOutTiming = 600
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  
+
   return (
     <>
       <View style={styles.buttonOpen}>
@@ -32,7 +38,7 @@ export default function ShowModal({ data }) {
         </TouchableOpacity>
       </View>
       <View>
-        <Modal style={styles.weatherContainer} isVisible={isModalVisible}>
+        <Modal style={styles.weatherContainer} isVisible={isModalVisible} animationIn={animationIn} animationInTiming={animationInTiming} animationOut={animationOut} animationOutTiming={animationOutTiming}>
           <View style={styles.currentWeatherContent}>
             <CurrentWeather data={data} />
           </View>
@@ -40,9 +46,9 @@ export default function ShowModal({ data }) {
             <ForecastWeather data={data} />
           </View>
           
-          <Pressable style={styles.buttonClose} onPress={toggleModal}>
+          <TouchableOpacity style={styles.buttonClose} onPress={toggleModal} >
             <Text style={styles.buttonCloseText}> X </Text>
-          </Pressable>
+          </TouchableOpacity>
         </Modal>
       </View>
     </>
@@ -115,5 +121,6 @@ const styles = StyleSheet.create({
     marginVertical: 0,
     backgroundColor: "#E7E7DE",
     alignItems: "center",
+
   },
 });

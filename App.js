@@ -13,13 +13,6 @@ export default function App() {
   // hook récup coord user
   const {isAuthorized, isLoading, error, data} = useCurrentLocationWeather();
 
-      //filter an fonction date du jour
-    
-    
-  //2- realiser une requete vers les serveurs
-
-  //city
-
   //previsions
   const getWeather = async (location) => {
     try {
