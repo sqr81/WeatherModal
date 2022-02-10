@@ -39,6 +39,7 @@ export default function ShowModal({ data }) {
         <Modal
           style={styles.weatherContainer}
           isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
           animationIn={"zoomIn"}
           //animationInTiming={animationInTiming}
           animationOut={"zoomOut"}

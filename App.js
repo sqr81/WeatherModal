@@ -33,7 +33,6 @@ export default function App() {
     );
   }
   //si pas autorisation enlever loading
-  
   //autorisation accès
   if(isAuthorized === false){
     return (
