@@ -53,15 +53,12 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    //backgroundColor: "red",
     alignItems: "center",
     borderRadius: 12,
     paddingBottom: "30%",
     width: "70%",
     height: "100%",
     alignSelf: "center",
-    //marginTop: "5%",
-
   },
 
   image: {
