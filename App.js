@@ -32,7 +32,8 @@ export default function App() {
       </View>
     );
   }
-
+  //si pas autorisation enlever loading
+  
   //autorisation accès
   if(isAuthorized === false){
     return (

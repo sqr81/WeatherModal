@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Image,
 } from "react-native";
 import Modal from "react-native-modal";
 import CurrentWeather from "./CurrentWeather";
@@ -12,15 +13,15 @@ import ForecastWeather from "./ForecastWeather";
 
 export default function ShowModal({ data }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const animationIn = "fadeIn"
-  const animationInTiming = 600
-  const animationOut = "fadeOut"
-  const animationOutTiming = 600
+  //const animationIn = "fadeIn";
+  //const animationInTiming = 600;
+  //const animationOut = "fadeOut";
+  //const animationOutTiming = 600;
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  
+
   return (
     <>
       <View style={styles.buttonOpen}>
@@ -35,15 +36,22 @@ export default function ShowModal({ data }) {
         </TouchableOpacity>
       </View>
       <View>
-        <Modal style={styles.weatherContainer} isVisible={isModalVisible} animationIn={animationIn} animationInTiming={animationInTiming} animationOut={animationOut} animationOutTiming={animationOutTiming}>
+        <Modal
+          style={styles.weatherContainer}
+          isVisible={isModalVisible}
+          animationIn={"zoomIn"}
+          //animationInTiming={animationInTiming}
+          animationOut={"zoomOut"}
+          //animationOutTiming={animationOutTiming}
+        >
           <View style={styles.currentWeatherContent}>
             <CurrentWeather data={data} />
           </View>
           <View style={styles.forecastWeatherContent}>
             <ForecastWeather data={data} />
-          </View>         
-          <TouchableOpacity style={styles.buttonClose} onPress={toggleModal} >
-            <Text style={styles.buttonCloseText}> X </Text>
+          </View>
+          <TouchableOpacity style={styles.buttonClose} onPress={toggleModal}>
+            <Image style={styles.buttonCloseText} source={require("../../../assets/cancel.png")}></Image>
           </TouchableOpacity>
         </Modal>
       </View>
@@ -60,14 +68,13 @@ const styles = StyleSheet.create({
 
   buttonClose: {
     position: "absolute",
-    right: "1%",
-    top: "5%",
-    backgroundColor: "#E7E7DE",
+    right: "5%",
+    top: "2%",
   },
 
   buttonCloseText: {
-    color: "black",
-    fontSize:20,
+    width: 20,
+    height: 20,
   },
 
   buttonOpen: {
