@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
-  Pressable,
 } from "react-native";
 import Modal from "react-native-modal";
 import CurrentWeather from "./CurrentWeather";
@@ -23,7 +21,6 @@ export default function ShowModal({ data }) {
     setModalVisible(!isModalVisible);
   };
   
-
   return (
     <>
       <View style={styles.buttonOpen}>
@@ -44,8 +41,7 @@ export default function ShowModal({ data }) {
           </View>
           <View style={styles.forecastWeatherContent}>
             <ForecastWeather data={data} />
-          </View>
-          
+          </View>         
           <TouchableOpacity style={styles.buttonClose} onPress={toggleModal} >
             <Text style={styles.buttonCloseText}> X </Text>
           </TouchableOpacity>
@@ -107,8 +103,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     textAlign: "center",
     marginTop: "-15%",
-    //backgroundColor:'green',
-    //justifyContent:'space-between',
   },
 
   weatherContainer: {
@@ -121,6 +115,5 @@ const styles = StyleSheet.create({
     marginVertical: 0,
     backgroundColor: "#E7E7DE",
     alignItems: "center",
-
   },
 });
