@@ -6,10 +6,10 @@ export const requestLocationPermission = async () => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
-        title: "Location Permission",
-        message: "Baroudeur needs access to your location.",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
+        title: "Permission de localisation",
+        message: "Baroudeur a besoin de votre position.",
+        buttonNeutral: "Demandez plus tard",
+        buttonNegative: "Non",
         buttonPositive: "OK"
       }
     );console.log(granted);

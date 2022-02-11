@@ -25,6 +25,7 @@ export default () => {
             }
             fetch()
         }
+        
     }, [locationIsLoading, coordonnates, isAuthorized])
 
     return {isAuthorized, isLoading: locationIsLoading || isLoading, data, error};

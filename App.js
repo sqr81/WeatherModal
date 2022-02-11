@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import * as Location from 'react-native-geolocation-service';
 import axios from "axios"
 
@@ -11,7 +11,7 @@ const API_URL = (lat, lon) => `https://api.openweathermap.org/data/2.5/forecast?
 
 export default function App() {
   // hook récup coord user
-  const {isAuthorized, isLoading, error, data} = useCurrentLocationWeather();
+  const {isAuthorized, error, data} = useCurrentLocationWeather();
 
   //previsions
   const getWeather = async (location) => {
@@ -23,15 +23,16 @@ export default function App() {
     } catch(e) {
       console.log("Erreur dans getWeather")
     }
+    
   }
   //Chargement 
-  if(isLoading){
+  /*if(isLoading){
     return (
       <View style={styles.container}>
         <ActivityIndicator style={styles.activityIndicator}/> 
       </View>
     );
-  }
+  }*/
   //si pas autorisation enlever loading
   //autorisation accès
   if(isAuthorized === false){
@@ -46,7 +47,7 @@ export default function App() {
   if(error){
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Error...</Text>
+        <Image style={styles.noSignal} source={require("././assets/noSignal.png")}></Image>
       </View>
     );
   }
@@ -61,14 +62,22 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  activityIndicator:{
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  
   container: {
     flex: 1,
     backgroundColor: '#E7E7DE',
     paddingHorizontal: 65,
   },
 
-  activityIndicator:{
-    justifyContent:'center',
-    alignItems:'center',
-  },
+  noSignal:{
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    right: 20,
+    top: 20,
+  }
 });
