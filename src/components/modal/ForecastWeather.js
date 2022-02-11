@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import { getCurrentPosition } from "react-native-geolocation-service";
 
 import Weather from "./Weather";
@@ -40,17 +47,16 @@ export default function ForecastWeather({ data }) {
         ></Image>
       </View>
       <View />
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.scroll}
-      >
-        {forecasts.map((f, index) => (
-          <View key={index.toString()} style={styles.containerThreeForecast}>
-            <Weather forecast={f} />
-          </View>
-        ))}
-      </ScrollView>
+
+      {forecasts.map((f, index) => (
+        <View key={index.toString()} style={styles.containerThreeForecast}>
+          <FlatList
+            data={forecasts}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <Weather forecast={f} />}
+          />
+        </View>
+      ))}
     </View>
   );
 }
@@ -59,8 +65,8 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    position:'relative',
-    top:'0%',
+    position: "relative",
+    top: "0%",
   },
 
   containerDate: {
