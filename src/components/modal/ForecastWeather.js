@@ -48,15 +48,15 @@ export default function ForecastWeather({ data }) {
       </View>
       <View />
 
-      {forecasts.map((f, index) => (
-        <View key={index.toString()} style={styles.containerThreeForecast}>
-          <FlatList
+    
+        <View  style={styles.containerThreeForecast}>
+          <FlatList horizontal
             data={forecasts}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <Weather forecast={f} />}
+            //keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <Weather forecast={item} />}
           />
         </View>
-      ))}
+     
     </View>
   );
 }
