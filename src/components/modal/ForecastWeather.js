@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { format, previousDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
   Text,
   View,
   Image,
   StyleSheet,
-  ScrollView,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { getCurrentPosition } from "react-native-geolocation-service";
-
 import Weather from "./Weather";
 
 export default function ForecastWeather({ data }) {
-  const [forecasts, setForecasts] = useState([]);
+  const [forecasts, setForecasts] = useState(null);
   const date = format(new Date(), "EEEE dd MMMM", { locale: fr });
+  //donnees sur 5 jours
+  const [forecastsData, setForecastsData] = useState(null);
+  //état qui defini le jour actuel  et on le met sur 0
+  const [currentPosition, setCurrentPosition] = useState(0);
 
   useEffect(() => {
     //on refait un tableau pour mieux manipuler les datas
@@ -30,33 +33,50 @@ export default function ForecastWeather({ data }) {
         name: format(dt, "EEEE", { locale: fr }),
       };
     });
-    setForecasts(forecastsData);
+    setForecasts(forecastsData[currentPosition].name);
+   console.log(forecastsData[currentPosition+3].name)
   }, [data]);
+
+  //jour suivant
+  const nextDay = () => {
+    // Si on demande le jour 6 
+    if(currentPosition + 1 <= forecastsData.length - 1){
+      setCurrentPosition(currentPosition => currentPosition + 1);
+    } else {
+      setCurrentPosition(0);
+    }
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.containerDate}>
-        <Image
-          style={styles.direction}
-          source={require("../../../assets/left.png")}
-        ></Image>
-        <Text style={styles.date}>{date}</Text>
-        <Image
-          style={styles.direction}
-          source={require("../../../assets/right.png")}
-        ></Image>
+        <TouchableOpacity>
+          <Image
+            style={styles.direction}
+            source={require("../../../assets/left.png")}
+          ></Image>
+        </TouchableOpacity>
+        <Text style={styles.date} onPress={nextDay}>{date}</Text>
+        
+        <TouchableOpacity onPress={nextDay}>
+          <Image
+            style={styles.direction}
+            source={require("../../../assets/right.png")}
+          ></Image>
+         
+        </TouchableOpacity>
       </View>
       <View />
-
-    
-        <View  style={styles.containerThreeForecast}>
-          <FlatList horizontal
-            data={forecasts}
-            //keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <Weather forecast={item} />}
-          />
-        </View>
-     
+      <View style={styles.containerThreeForecast}forecasts={(forecasts)=>{
+        setForecasts(forecasts);
+      }}> 
+        <FlatList
+          horizontal
+          data={forecasts}      
+          renderItem={({ item }) => <Weather forecast={item} />}
+        />
+        <Text>{forecastsData ? forecastsData[currentPosition].name: null}</Text>
+      </View>
     </View>
   );
 }

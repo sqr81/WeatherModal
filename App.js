@@ -51,14 +51,19 @@ export default function App() {
       </View>
     );
   }
- 
-  //affichage ville
-  return (
-    <View style={styles.container}>
-      <Text>{data?.city?.name}</Text>
-      <ShowModal data={data}/>  
-    </View>
-  );
+  else if(!data){
+    return(
+      null
+    )
+  }
+  else{
+    return (
+      <View style={styles.container}>
+        <Text>{data?.city?.name}</Text>
+        <ShowModal data={data}/>  
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

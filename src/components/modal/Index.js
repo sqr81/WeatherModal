@@ -13,10 +13,6 @@ import ForecastWeather from "./ForecastWeather";
 
 export default function ShowModal({ data }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  //const animationIn = "fadeIn";
-  //const animationInTiming = 600;
-  //const animationOut = "fadeOut";
-  //const animationOutTiming = 600;
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
