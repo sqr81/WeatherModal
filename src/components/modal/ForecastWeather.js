@@ -80,16 +80,7 @@ export default function ForecastWeather({ data }) {
           setForecasts(forecasts);
         }}
       >
-      if(forecastsData){
-        <FlatList
-          horizontal
-          data={forecastsData[currentPosition]}
-          renderItem={({ item }) => <Weather forecast={item} />}
-        />
-        }
-        else{
-          console.log('erreur')
-        }
+      {forecastsData ? <FlatList horizontal data={forecastsData[currentPosition]} renderItem={( item ) => <Weather forecast={item} />} /> : null}
       </View>
     </View>
   );
