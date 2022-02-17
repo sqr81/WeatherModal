@@ -33,19 +33,20 @@ export default function ForecastWeather({ data }) {
         name: format(dt, "EEEE", { locale: fr }),
       };
     });
-    setForecasts(forecastsData[currentPosition].name);
-   console.log(forecastsData[currentPosition+3].name)
+    setForecasts(forecastsData);
+    //console.log(forecastsData[currentPosition+3].name)
+    console.log(forecastsData[0].name);
   }, [data]);
 
   //jour suivant
   const nextDay = () => {
-    // Si on demande le jour 6 
-    if(currentPosition + 1 <= forecastsData.length - 1){
-      setCurrentPosition(currentPosition => currentPosition + 1);
+    // Si on demande le jour 6
+    if (forecastsData && currentPosition + 1 <= forecastsData.length - 1) {
+      setCurrentPosition((currentPosition) => currentPosition + 1);
     } else {
       setCurrentPosition(0);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -56,26 +57,39 @@ export default function ForecastWeather({ data }) {
             source={require("../../../assets/left.png")}
           ></Image>
         </TouchableOpacity>
-        <Text style={styles.date} onPress={nextDay}>{date}</Text>
+
+        <Text style={styles.date} onPress={nextDay}>
+          {date}
+        </Text>
+        <Text>
+          {forecastsData ? forecastsData[currentPosition].name : null}
+        </Text>
         
         <TouchableOpacity onPress={nextDay}>
           <Image
             style={styles.direction}
             source={require("../../../assets/right.png")}
           ></Image>
-         
         </TouchableOpacity>
       </View>
       <View />
-      <View style={styles.containerThreeForecast}forecasts={(forecasts)=>{
-        setForecasts(forecasts);
-      }}> 
+
+      <View
+        style={styles.containerThreeForecast}
+        forecasts={(forecasts) => {
+          setForecasts(forecasts);
+        }}
+      >
+      if(forecastsData){
         <FlatList
           horizontal
-          data={forecasts}      
+          data={forecastsData[currentPosition]}
           renderItem={({ item }) => <Weather forecast={item} />}
         />
-        <Text>{forecastsData ? forecastsData[currentPosition].name: null}</Text>
+        }
+        else{
+          console.log('erreur')
+        }
       </View>
     </View>
   );
