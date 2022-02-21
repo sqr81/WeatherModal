@@ -29,11 +29,13 @@ export default function ForecastWeather({ data }) {
         hour: dt.getHours(),
         temp: Math.round(f.main.temp),
         icon: f.weather[0].icon,
-        name: format(dt, "EEEE", { locale: fr }),
+        name: format(dt, "EEEE dd MMMM", { locale: fr }),
       };
     });
     //recuperer les jours uniques
     const days = [...new Set(transformedData.map((data) => data.name))];
+    const completeDate = [...new Set (transformedData.map((data) => data.date))];
+    //console.log(date)
     //
     const dataForDays = [];
     //filtrer les jours qui ont le même nom
