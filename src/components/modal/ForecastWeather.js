@@ -13,16 +13,15 @@ import { getCurrentPosition } from "react-native-geolocation-service";
 import Weather from "./Weather";
 
 export default function ForecastWeather({ data }) {
-  const [forecasts, setForecasts] = useState(null);
   const date = format(new Date(), "EEEE dd MMMM", { locale: fr });
   //donnees sur 5 jours
-  const [forecastsData, setForecastsData] = useState(null);
+  const [fiveDaysData, setFiveDaysData] = useState(null);
   //état qui defini le jour actuel  et on le met sur 0
   const [currentPosition, setCurrentPosition] = useState(0);
 
   useEffect(() => {
     //on refait un tableau pour mieux manipuler les datas
-    const forecastsData = data.list.map((f) => {
+    const transformedData = data.list.map((f) => {
       //la date de openweather n'est pas standard, on doit la modifier
       const dt = new Date(f.dt * 1000);
       return {
@@ -33,38 +32,63 @@ export default function ForecastWeather({ data }) {
         name: format(dt, "EEEE", { locale: fr }),
       };
     });
-    setForecasts(forecastsData);
-    //console.log(forecastsData[currentPosition+3].name)
-    console.log(forecastsData[0].name);
+    //recuperer les jours uniques
+    const days = [...new Set(transformedData.map((data) => data.name))];
+    //
+    const dataForDays = [];
+    //filtrer les jours qui ont le même nom
+    days.forEach((day) => {
+      const array = transformedData.filter((data) => data.name === day);
+      dataForDays.push({
+        day,
+        data: array,
+      });
+    });
+
+    setFiveDaysData(dataForDays);
   }, [data]);
 
-  //jour suivant
+  //jours suivants
   const nextDay = () => {
+    if (!fiveDaysData) return;
     // Si on demande le jour 6
-    if (forecastsData && currentPosition + 1 <= forecastsData.length - 1) {
+    if (currentPosition + 1 <= fiveDaysData.length - 1) {
       setCurrentPosition((currentPosition) => currentPosition + 1);
     } else {
       setCurrentPosition(0);
     }
   };
+  //jours précédents
+  const previousDay = () => {
+    if (!fiveDaysData) return;
+    // Si on demande le jour 6
+    if (currentPosition - 1 > 0) {
+      setCurrentPosition((currentPosition) => currentPosition - 1);
+    } else {
+      setCurrentPosition(fiveDaysData.length - 1);
+    }
+  };
+
+  if (!fiveDaysData) {
+    return (
+      <View>
+        <Text>Chargement...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.containerDate}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={previousDay}>
           <Image
             style={styles.direction}
             source={require("../../../assets/left.png")}
           ></Image>
         </TouchableOpacity>
 
-        <Text style={styles.date} onPress={nextDay}>
-          {date}
-        </Text>
-        <Text>
-          {forecastsData ? forecastsData[currentPosition].name : null}
-        </Text>
-        
+        <Text style={styles.date}>{fiveDaysData[currentPosition].day}</Text>
+
         <TouchableOpacity onPress={nextDay}>
           <Image
             style={styles.direction}
@@ -72,15 +96,15 @@ export default function ForecastWeather({ data }) {
           ></Image>
         </TouchableOpacity>
       </View>
-      <View />
 
-      <View
-        style={styles.containerThreeForecast}
-        forecasts={(forecasts) => {
-          setForecasts(forecasts);
-        }}
-      >
-      {forecastsData ? <FlatList horizontal data={forecastsData[currentPosition]} renderItem={( item ) => <Weather forecast={item} />} /> : null}
+      <View style={styles.containerThreeForecast}>
+        <FlatList
+          data={fiveDaysData[currentPosition].data}
+          horizontal
+          renderItem={({ item }) => (
+            <Weather hour={item.hour} temp={item.temp} icon={item.icon} />
+          )}
+        />
       </View>
     </View>
   );
@@ -103,6 +127,8 @@ const styles = StyleSheet.create({
 
   containerThreeForecast: {
     height: "85%",
+    display: "flex",
+    flexDirection: "row",
     alignContent: "space-between",
   },
 

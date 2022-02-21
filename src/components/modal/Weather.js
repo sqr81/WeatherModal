@@ -3,13 +3,12 @@ import { View, Text, StyleSheet, Image } from "react-native";
 
 const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
-export default function Weather({ forecast }) {
+export default function Weather({ hour, temp, icon }) {
   return (
     <View style={styles.containerOneForecast}>
-      <Text style={styles.name}>{forecast.name}</Text>
-      <Text style={styles.hour}>{forecast.hour} h</Text>
-      <Image source={{ uri: getIcon(forecast?.icon) }} style={styles.image} />
-      <Text style={styles.temperature}>{forecast.temp} °C</Text>
+      <Text style={styles.name}>{hour}</Text>
+      <Text style={styles.temperature}>{temp} °C</Text>
+      <Image source={{ uri: getIcon(icon) }} style={styles.image} />
     </View>
   );
 }
