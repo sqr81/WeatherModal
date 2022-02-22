@@ -16,7 +16,7 @@ export default function Weather({ hour, temp, icon }) {
 const styles = StyleSheet.create({
   containerOneForecast: {
     width: 85,
-    height: "100%",
+    height: "80%",
     backgroundColor: "#008891",
     borderRadius: 12,
     alignItems: "center",

@@ -22,7 +22,7 @@ export default function CurrentWeather({ data }) {
     <>
       <View style={styles.container}>
         <Text style={styles.city}>{data?.city?.name}</Text>
-        <Text style={styles.aujourdhui}>Aujourd'hui</Text>
+        <Text style={styles.today}>Aujourd'hui</Text>
         <Image
           style={styles.image}
           source={{ uri: getIcon(currentWeather?.weather[0].icon) }}
@@ -36,7 +36,7 @@ export default function CurrentWeather({ data }) {
 }
 
 const styles = StyleSheet.create({
-  aujourdhui: {
+  today: {
     position: "relative",
     top: "10%",
     fontSize: 16,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingBottom: "30%",
     width: "70%",
-    height: "100%",
+    height: "90%",
     alignSelf: "center",
   },
 
