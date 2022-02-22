@@ -35,7 +35,6 @@ export default function ForecastWeather({ data }) {
     //recuperer les jours uniques
     const days = [...new Set(transformedData.map((data) => data.name))];
     const completeDate = [...new Set (transformedData.map((data) => data.date))];
-    //console.log(date)
     //
     const dataForDays = [];
     //filtrer les jours qui ont le même nom
@@ -106,7 +105,7 @@ export default function ForecastWeather({ data }) {
           renderItem={({ item }) => (
             <Weather hour={item.hour} temp={item.temp} icon={item.icon} />
           )}
-        />
+        />{console.log(fiveDaysData[currentPosition].data)}
       </View>
     </View>
   );

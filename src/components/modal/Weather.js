@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingHorizontal: 5,
     margin: 10,
+    justifyContent:"space-around",
+    
   },
   image: {
     width: 50,
